@@ -14,14 +14,21 @@ nmap -sS 192.168.201.0/24
 ```
 
 ### 3. Wireshark Packet Filters
-To filter for SYN packets:
+To capture specific packet types, use the following filters in Wireshark:
+
+- **SYN Packets (Initial connection attempt):**
 ```plaintext
 tcp.flags.syn == 1 and tcp.flags.ack == 0
 ```
 
-To filter for SYN+ACK responses:
+- **SYN+ACK Packets (Target response indicating open port):**
 ```plaintext
 tcp.flags.syn == 1 and tcp.flags.ack == 1
+```
+
+- **RST Packets (Port closed response):**
+```plaintext
+tcp.flags.reset == 1
 ```
 
 ---
@@ -46,3 +53,21 @@ IP Address       | Status   | Open Ports | Services
 192.168.201.254  | Host Up  | None       | —
 192.168.201.131  | Host Up  | None       | (Local Machine)
 ```
+
+---
+
+## 📡 Wireshark Usage Summary
+
+### Steps to Capture Packets:
+1. Open **Wireshark**.
+2. Select the active network interface (e.g., `eth0`, `ens33`).
+3. Start capturing before running the Nmap scan.
+4. Run the Nmap scan: `nmap -sS 192.168.201.0/24`.
+5. Stop the capture once the scan is complete.
+6. Apply the filters listed above to analyze SYN, SYN+ACK, or RST packets.
+
+### Example Use Cases:
+- Confirm SYN packets sent to each host.
+- Detect open ports via SYN+ACK responses.
+- Identify closed ports through RST responses.
+
