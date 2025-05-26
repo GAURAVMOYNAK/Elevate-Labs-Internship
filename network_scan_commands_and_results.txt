@@ -1,0 +1,48 @@
+
+# Network Scan Commands and Results
+
+## 🖥️ Commands Used
+
+### 1. Get Local IP Info
+```bash
+ifconfig
+```
+
+### 2. TCP SYN Scan on Local Network
+```bash
+nmap -sS 192.168.201.0/24
+```
+
+### 3. Wireshark Packet Filters
+To filter for SYN packets:
+```plaintext
+tcp.flags.syn == 1 and tcp.flags.ack == 0
+```
+
+To filter for SYN+ACK responses:
+```plaintext
+tcp.flags.syn == 1 and tcp.flags.ack == 1
+```
+
+---
+
+## 📄 Results
+
+### Local IP Info Output
+```
+IP Address: 192.168.201.131
+Subnet Mask: 255.255.255.0
+Broadcast Address: 192.168.201.255
+Interface: eth0
+IP Range: 192.168.201.1 to 192.168.201.254
+```
+
+### Nmap Scan Results
+```
+IP Address       | Status   | Open Ports | Services
+---------------------------------------------------
+192.168.201.1    | Host Up  | 3306       | MySQL
+192.168.201.2    | Host Up  | 53         | DNS
+192.168.201.254  | Host Up  | None       | —
+192.168.201.131  | Host Up  | None       | (Local Machine)
+```
